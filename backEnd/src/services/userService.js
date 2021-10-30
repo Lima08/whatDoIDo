@@ -21,18 +21,15 @@ const jwtConfig = {
 
 async function login(email, password) {
   const user = await model.login(email);
-  console.log('serves,', user)
 
   const { name, role, _id } = user;
   isValidPAssword(password, user.password);
-  console.log('passou isValidPAssword');
 
   const token = JWT.sign(
     { data: { _id, name, email, role } },
     process.env.SECRET,
     jwtConfig
   );
-  console.log('passou token', token);
 
   return token;
 }
