@@ -11,8 +11,8 @@ async function newUser(name, email, password, role) {
 
 async function login(email) {
   return connection()
-    .then((db) => db.collection('users').findOne({ email }))
-    .then((response) => response)
+    .then((db) => db.collection('users').findOne({email}))
+    .then((response) => response) 
     .catch(() => null);
 }
 
