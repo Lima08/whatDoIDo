@@ -1,8 +1,6 @@
 const service = require('../services/todoService');
 
 async function addTodo(req, res, _next) {
-  console.log('controller todo decoded', req.decoded);
-  console.log('controller req.body', req.body);
   const { _id: userId } = req.decoded.data;
   const newtodo = { ...req.body, userId };
 
@@ -11,11 +9,11 @@ async function addTodo(req, res, _next) {
   return res.status(201).json({ todo });
 }
 
-// async function getAlltodo(req, res, _next) {
-//   const todos = await service.getAlltodo();
+async function getAllTodo(_req, res, _next) {
+  const todos = await service.getAllTodo();
 
-//   return res.status(200).json(todos);
-// }
+  return res.status(200).json(todos);
+}
 
 // async function getByIDtodo(req, res, _next) {
 // const { id } = req.params;
@@ -43,7 +41,7 @@ async function addTodo(req, res, _next) {
 
 module.exports = {
   addTodo,
-  // getAlltodo,
+  getAllTodo,
   // updatetodoById,
   // excludeByIDtodo,
 };

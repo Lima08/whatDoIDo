@@ -9,9 +9,9 @@ async function addTodo({ title, date, description, userId, role }) {
   return { title, date, description, userId, role, todoId: insertedId };
 }
 
-// async function getAlltodo() {
-//   return model.getAlltodo();
-// }
+async function getAllTodo() {
+  return model.getAllTodo();
+}
 
 // async function getByIDtodo(id) {
 //   const todo = await model.getByIDtodo(id);
@@ -40,7 +40,7 @@ async function addTodo({ title, date, description, userId, role }) {
 
 module.exports = {
   addTodo,
-  // getAlltodo,
+  getAllTodo,
   // updatetodoById,
   // excludeByIDtodo,
 };

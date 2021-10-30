@@ -13,11 +13,11 @@ async function addTodo(newTodo) {
     .catch(() => null);
 }
 
-// async function getAlltodo() {
-//   return connection()
-//     .then((db) => db.collection('todo').find().toArray())
-//     .catch(() => null);
-// }
+async function getAllTodo() {
+  return connection()
+    .then((db) => db.collection('todo').find().toArray())
+    .catch(() => null);
+}
 
 // async function getByIDtodo(id) {
 //   return connection()
@@ -45,7 +45,7 @@ async function addTodo(newTodo) {
 
 module.exports = {
   addTodo,
-  // getAlltodo,
+  getAllTodo,
   // updatetodoById,
   // excludeByIDtodo,
 };
