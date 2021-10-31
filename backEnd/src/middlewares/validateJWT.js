@@ -12,7 +12,6 @@ function validateJWT(req, _res, next) {
   
   try {
     const token = jwt.verify(authorization, process.env.SECRET);
-    console.log('token', token)
     req.decoded = token;
     next();
   } catch (e) {

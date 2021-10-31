@@ -2,7 +2,11 @@ require('dotenv').config();
 
 const model = require('../models/userModel');
 const JWT = require('jsonwebtoken');
-const { isUniqueEmail, isValidPAssword } = require('../validations/validUser');
+const {
+  isUniqueEmail,
+  isValidPassword,
+  isExistentUser,
+} = require('../validations/validUser');
 
 async function newUser(name, email, password, role) {
   const isExistentUser = await model.login(email);
@@ -21,9 +25,9 @@ const jwtConfig = {
 
 async function login(email, password) {
   const user = await model.login(email);
-
+  isExistentUser(user);
+  isValidPassword(password, user.password);
   const { name, role, _id } = user;
-  isValidPAssword(password, user.password);
 
   const token = JWT.sign(
     { data: { _id, name, email, role } },

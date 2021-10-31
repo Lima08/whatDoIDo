@@ -1,13 +1,13 @@
-// const { ObjectId } = require('mongodb');
+const { ObjectId } = require('mongodb');
 
 const connection = require('../connections/mongoConnection');
 
-async function addTodo(newTodo) {
+async function addTodo(title, date, description, userId, role) {
   return connection()
     .then((db) =>
       db
         .collection('todo')
-        .insertOne(newTodo)
+        .insertOne({ title, date, description, userId, role })
     )
     .then((response) => response)
     .catch(() => null);
@@ -19,11 +19,11 @@ async function getAllTodo() {
     .catch(() => null);
 }
 
-// async function getByIDtodo(id) {
-//   return connection()
-//     .then((db) => db.collection('todo').findOne(ObjectId(id)))
-//     .catch(() => null);
-// }
+async function getTodoByID(id) {
+  return connection()
+    .then((db) => db.collection('todo').findOne(ObjectId(id)))
+    .catch(() => null);
+}
 
 // async function updatetodoById({ name, ingredients, preparation }, todoId, userId) {
 //   return connection()
@@ -38,14 +38,16 @@ async function getAllTodo() {
 //     .catch(() => null);
 // }
 
-// async function excludeByIDtodo(id) {
-//   return connection()
-//     .then((db) => db.collection('todo').deleteOne({ _id: ObjectId(id) }));
-// }
+async function excludeTodoById(id) {
+  return connection().then((db) =>
+    db.collection('todo').deleteOne({ _id: ObjectId(id) })
+  );
+}
 
 module.exports = {
   addTodo,
   getAllTodo,
+  getTodoByID,
   // updatetodoById,
-  // excludeByIDtodo,
+  excludeTodoById,
 };

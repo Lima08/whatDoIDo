@@ -1,9 +1,8 @@
 const model = require('../models/todoModel');
-// const valid = require('../validations/validtodo');
+const valid = require('../validations/validTodo');
 
 async function addTodo({ title, date, description, userId, role }) {
-  const todo = await model.addTodo({ title, date, description, userId, role });
-  console.log( 'model resposta todo', todo)
+  const todo = await model.addTodo(title, date, description, userId, role);
   const { insertedId } = todo;
 
   return { title, date, description, userId, role, todoId: insertedId };
@@ -13,34 +12,38 @@ async function getAllTodo() {
   return model.getAllTodo();
 }
 
-// async function getByIDtodo(id) {
-//   const todo = await model.getByIDtodo(id);
-//   valid.isExistenttodo(todo);
+// async function getTodoByID(id) {
+//   const todo = await model.getTodoByID(id);
+//   valid.isExistentTodo(todo);
 
 //   return todo;
 // }
 
 // async function updatetodoById(editedtodo, userIdJWT, todoId, role) {
-//   const oldtodo = await getByIDtodo(todoId);
-  
-//   valid.istodoOwner(oldtodo.userId, userIdJWT, role);
+//   const oldtodo = await getTodoByID(todoId);
+
+//   valid.isTodoOwner(oldtodo.userId, userIdJWT, role);
 //   const todo = await model.updatetodoById(editedtodo, todoId, userIdJWT);
-  
-//   return todo;
-// }
-
-// async function excludeByIDtodo(id, { _id: userIdJWT, role }) {
-//   const dbtodo = await getByIDtodo(id);
-
-//   valid.istodoOwner(dbtodo.userId, userIdJWT, role);
-//   const todo = await model.excludeByIDtodo(id);
 
 //   return todo;
 // }
+
+async function excludeTodoById(id, data) {
+  const dBTodo = await model.getTodoByID(id);
+  console.log('dBTodo------------', dBTodo)
+  valid.isExistentTodo(dBTodo);
+
+  const { _id: userIdJWT, role } = data;
+
+  valid.isTodoOwner(dBTodo.userId, userIdJWT, role);
+  const todo = await model.excludeTodoById(id);
+
+  return todo;
+}
 
 module.exports = {
   addTodo,
   getAllTodo,
   // updatetodoById,
-  // excludeByIDtodo,
+  excludeTodoById,
 };

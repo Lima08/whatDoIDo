@@ -31,17 +31,17 @@ async function getAllTodo(_req, res, _next) {
 
 //   return res.status(200).json(todo);
 // }
-// async function excludeByIDtodo(req, res, _next) {
-//   const { data } = req.decoded;
-//   const { id } = req.params;
-//   await service.excludeByIDtodo(id, data);
-
-//   return res.status(204).end();
-// }
+async function excludeTodoById(req, res, _next) {
+  const { data } = req.decoded;
+  const { id } = req.params;
+  await service.excludeTodoById(id, data);
+  console.log('controller - fim delete ')
+  return res.status(204).end();
+}
 
 module.exports = {
   addTodo,
   getAllTodo,
   // updatetodoById,
-  // excludeByIDtodo,
+  excludeTodoById,
 };

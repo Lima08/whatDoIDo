@@ -19,6 +19,10 @@ module.exports = {
     message: 'Incorrect username or password',
     status: 401,
   },
+  notFound: {
+    message: 'Not found',
+    status: 404,
+  },
   emailAreadyExists: {
     message: 'Email already registered',
     status: 409,
