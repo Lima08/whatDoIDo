@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function TodoCard({ todoList }) {
-const {title, date, status, description} = todoList;
+  const { title, date, status, description } = todoList;
 
   return (
     // No clicar nessa div o usuario será direcionado para a tele de nova tarefa.
@@ -14,5 +15,13 @@ const {title, date, status, description} = todoList;
     </div>
   );
 }
+
+TodoCard.propTypes = {
+  todoList: PropTypes.array,
+  title: PropTypes.string,
+  date: PropTypes.string,
+  status: PropTypes.string,
+  description: PropTypes.string,
+};
 
 export default TodoCard;
