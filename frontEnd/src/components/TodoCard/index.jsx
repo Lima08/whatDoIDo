@@ -17,7 +17,7 @@ function TodoCard({ todoList }) {
 }
 
 TodoCard.propTypes = {
-  todoList: PropTypes.array,
+  todoList: PropTypes.object,
   title: PropTypes.string,
   date: PropTypes.string,
   status: PropTypes.string,
