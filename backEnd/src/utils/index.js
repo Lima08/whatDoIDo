@@ -27,6 +27,10 @@ module.exports = {
     message: 'Email already registered',
     status: 409,
   },
+  errorOperation: {
+    status: 500,
+    message: 'Operation error.',
+  },
   default: {
     status: 500,
     message: 'Internal error.',

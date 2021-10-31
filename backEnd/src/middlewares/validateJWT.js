@@ -13,6 +13,7 @@ function validateJWT(req, _res, next) {
   try {
     const token = jwt.verify(authorization, process.env.SECRET);
     req.decoded = token;
+
     next();
   } catch (e) {
     throw invalidJWT;

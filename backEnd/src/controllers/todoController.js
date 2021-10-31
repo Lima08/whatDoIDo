@@ -1,6 +1,6 @@
 const service = require('../services/todoService');
 
-async function addTodo(req, res, _next) {
+async function addTodo(req, res) {
   const { _id: userId } = req.decoded.data;
   const newtodo = { ...req.body, userId };
 
@@ -9,39 +9,31 @@ async function addTodo(req, res, _next) {
   return res.status(201).json({ todo });
 }
 
-async function getAllTodo(_req, res, _next) {
+async function getAllTodo(_req, res) {
   const todos = await service.getAllTodo();
 
   return res.status(200).json(todos);
 }
 
-// async function getByIDtodo(req, res, _next) {
-// const { id } = req.params;
+async function updateTodoById(req, res) {
+  const { _id: userId, role } = req.decoded.data;
+  const { id: todoId } = req.params;
+  const { body: editedTodo } = req;
+  const todo = await service.updateTodoById(editedTodo, userId, todoId, role);
 
-//   const todo = await service.getByIDtodo(id);
+  return res.status(200).json(todo);
+}
 
-//   return res.status(200).json(todo);
-// }
-
-// async function updatetodoById(req, res, _next) {
-//   const { _id: userId, role } = req.decoded.data;
-//   const { id: todoId } = req.params;
-//   const { body } = req;
-//   const todo = await service.updatetodoById(body, userId, todoId, role);
-
-//   return res.status(200).json(todo);
-// }
-async function excludeTodoById(req, res, _next) {
+async function excludeTodoById(req, res) {
   const { data } = req.decoded;
   const { id } = req.params;
   await service.excludeTodoById(id, data);
-  console.log('controller - fim delete ')
   return res.status(204).end();
 }
 
 module.exports = {
   addTodo,
   getAllTodo,
-  // updatetodoById,
+  updateTodoById,
   excludeTodoById,
 };

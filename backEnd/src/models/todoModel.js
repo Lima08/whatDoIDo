@@ -2,12 +2,17 @@ const { ObjectId } = require('mongodb');
 
 const connection = require('../connections/mongoConnection');
 
-async function addTodo(title, date, description, userId, role) {
+async function addTodo(title, date, description, userId, status) {
   return connection()
     .then((db) =>
-      db
-        .collection('todo')
-        .insertOne({ title, date, description, userId, role })
+      db.collection('todo').insertOne({
+        _id: ObjectId(),
+        title,
+        date,
+        description,
+        userId,
+        status,
+      })
     )
     .then((response) => response)
     .catch(() => null);
@@ -21,22 +26,27 @@ async function getAllTodo() {
 
 async function getTodoByID(id) {
   return connection()
-    .then((db) => db.collection('todo').findOne(ObjectId(id)))
+    .then((db) => db.collection('todo').findOne({ _id: ObjectId(id) }))
     .catch(() => null);
 }
 
-// async function updatetodoById({ name, ingredients, preparation }, todoId, userId) {
-//   return connection()
-//     .then((db) =>
-//       db
-//         .collection('todo')
-//         .updateOne(
-//           { _id: ObjectId(todoId) },
-//           { $set: { name, ingredients, preparation } },
-//           ))
-//     .then(() => ({ name, ingredients, preparation, _id: todoId, userId }))
-//     .catch(() => null);
-// }
+async function updateTodoById(
+  { title, date, description, status },
+  todoId,
+  userIdJWT
+) {
+  return connection()
+    .then((db) =>
+      db
+        .collection('todo')
+        .updateOne(
+          { _id: ObjectId(todoId) },
+          { $set: { title, date, description, status } }
+        )
+    )
+    .then(() => ({ title, date, description, todoId, userIdJWT, status }))
+    .catch(() => null);
+}
 
 async function excludeTodoById(id) {
   return connection().then((db) =>
@@ -48,6 +58,6 @@ module.exports = {
   addTodo,
   getAllTodo,
   getTodoByID,
-  // updatetodoById,
+  updateTodoById,
   excludeTodoById,
 };
