@@ -9,8 +9,9 @@ async function addTodo(req, res) {
   return res.status(201).json({ todo });
 }
 
-async function getAllTodo(_req, res) {
-  const todos = await service.getAllTodo();
+async function getAllTodo(req, res) {
+  const { data } = req.decoded;
+  const todos = await service.getAllTodo(data);
 
   return res.status(200).json(todos);
 }

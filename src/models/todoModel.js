@@ -18,9 +18,9 @@ async function addTodo(title, date, description, userId, status) {
     .catch(() => null);
 }
 
-async function getAllTodo() {
+async function getAllTodo(id) {
   return connection()
-    .then((db) => db.collection('todo').find().toArray())
+    .then((db) => db.collection('todo').find({ userId: id}).toArray())
     .catch(() => null);
 }
 

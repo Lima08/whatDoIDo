@@ -14,8 +14,9 @@ async function addTodo({
   return { title, date, description, userId, todoId: insertedId, status };
 }
 
-async function getAllTodo() {
-  return model.getAllTodo();
+async function getAllTodo(data) {
+  const { _id: userIdJWT } = data;
+  return model.getAllTodo(userIdJWT);
 }
 
 async function updateTodoById(editedTodo, userIdJWT, todoId, role) {
