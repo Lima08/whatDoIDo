@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const MONGO_DB_URL = `mongodb://${process.env.HOST}:27017/${process.env.DB_NAME}`;
+const MONGO_DB_URL = process.env.MONGO_DB_URL;
 
 const { MongoClient } = require('mongodb');
 
