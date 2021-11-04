@@ -4,7 +4,7 @@ const valid = require('../validations/validTodo');
 async function addTodo({
   title,
   date,
-  description,
+  description = '',
   userId,
   status = 'pendente',
 }) {
